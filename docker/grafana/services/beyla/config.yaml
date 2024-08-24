@@ -1,0 +1,12 @@
+routes:
+  ignored_patterns:
+    - /metrics
+    - /debug/*
+#  patterns:
+#    - /create_user
+#    - /balance_read
+#    - /top_users
+#    - /top_transactions_per_user
+#    - /balance_topup
+#    - /transfer
+#  unmatched: heuristic

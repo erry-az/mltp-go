@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package ewallet;
+
+option go_package = "/ewallet";
+
+// Define a message for user data
+message User {
+  string username = 1;
+}
+
+// Define a message for transfer request
+message TransferRequest {
+  string target_username = 1;
+  double amount = 2;
+}
+
+// Define a message for top transaction data
+message TopTransaction {
+  string username = 1;
+  double amount = 2;
+}
+
+// Define a message for the response of top transactions
+message TopTransactionsResponse {
+  repeated TopTransaction transactions = 1;
+}
+
+// Define a message for token
+message Token {
+  string jwt = 1;
+}
+
+message BalanceReadResponse {
+    double amount = 1;
+}
+
+message TransferResponse {
+    bool isSuccess = 1;
+}
+
+message TopupBalanceRequest {
+    double amount = 1;
+}
+
+message TopupBalanceResponse {
+    bool isSuccess = 1;
+}
+
+// Define a service for e-wallet operations
+service EWallet {
+  // Get user balance with JWT token
+  rpc BalanceRead (google.protobuf.Empty) returns (BalanceReadResponse) {}
+
+  // Transfer funds with JWT token, target username, and amount
+  rpc Transfer (TransferRequest) returns (TransferResponse) {}
+
+  // Get top transacting users by value with JWT token
+  rpc ListTopUsers (google.protobuf.Empty) returns (TopTransactionsResponse) {}
+
+  // Register a new user with username and return JWT token
+  rpc Register (User) returns (Token) {}
+
+  // Topup user balance with JWT token and amount
+  rpc TopupBalance (TopupBalanceRequest) returns (TopupBalanceResponse) {}
+
+  // Get top transactions for the user with JWT token
+  rpc GetTopTransactions (google.protobuf.Empty) returns (TopTransactionsResponse) {}
+}

@@ -1,0 +1,7 @@
+POST localhost:14848/create_user
+Content-Type: application/json
+
+{
+  "name":"samsulx",
+  "username": "jhondoez"
+}
